@@ -19,44 +19,50 @@
 
 #include <iostream>
 #include <stdio.h>
-const int row = 5;
-const int col = 6;
+const int row = 4;
+const int col = 4;
 int Path[row][col];
+int function_layer_tracker = 0;
 
 int cost(int r, int c) //r is the row , c is the column
 {
     int left, up, down;
-	int weight[row][col] = {{3,4,1,2,8,6},
-						    {6,1,8,2,7,4},
-						    {5,9,3,9,9,5},
-						    {8,4,1,3,2,6},
-						    {3,7,2,8,6,3}};
-
-	static int PathMemo[row][col]= {{3},{6},{5},{8},{3}};
-
-//	    //test data
-//	    int weight[row][col] = {{501,2,1003,4},
-//	                            {105,106,507,108},
-//	                            {209,610,211,212},
-//	                            {313,314,915,316}};
+    function_layer_tracker ++;
+//	int weight[row][col] = {{3,4,1,2,8,6},
+//						    {6,1,8,2,7,4},
+//						    {5,9,3,9,9,5},
+//						    {8,4,1,3,2,6},
+//						    {3,7,2,1,3,3}};
 //
-//	    static int PathMemo[row][col]= {};
+//	static int PathMemo[row][col]= {{3},{6},{5},{8},{3}};
+
+	    //test data
+	    int weight[row][col] = {{501,2,1003,4},
+	                            {105,106,507,108},
+	                            {209,610,211,212},
+	                            {313,314,915,316}};
+
+	    static int PathMemo[row][col]= {};
 
     //base case
     if (c == 0)
     {
+        function_layer_tracker --;
         return weight[r][0];
     }
     else if (PathMemo[r][c] != 0)
     {
+        function_layer_tracker --;
         return PathMemo[r][c];
     }
-
     //recursive call
+    printf("In function_layer_tracker %d. Before Moving we are at %d\n", function_layer_tracker, weight[r][c]);
     left = cost(r,c-1) + weight[r][c]; //  same row. 1 column to the left
     up   = cost((r+(row-1))%row,c-1) + weight[r][c]; // 1 row up, 1 column to the left
     down = cost((r+1)%row,c-1) + weight[r][c]; // 1 row down, 1 column to the left
 
+    printf("In function_layer_tracker %d. Now we are saving info at %d\n", function_layer_tracker, weight[r][c]);
+    std::cout<<"left"<<left<<"  up" <<up << "  down" <<down<<std::endl;
     int min = left;
     Path[r][c] = r;
     if (min > up)
@@ -69,6 +75,9 @@ int cost(int r, int c) //r is the row , c is the column
         Path[r][c] = (r+1)%row;
         min = down;
     }
+
+    printf("Cost at %d = %d is from %d\n", weight[r][c], min, Path[r][c]);
+    function_layer_tracker --;
     return PathMemo[r][c] = min;
 }
 
@@ -82,7 +91,9 @@ int main(void)
     //how much it costs to travel from the first column to the last column.
     for(int i = 0; i < row; i++)
     {
+        printf("\n--------------------------------\ncalling cost for exit # %d\n\n", i);
         ex[i] = cost(i, col-1);
+
     }
 
     min = ex[0];
@@ -103,22 +114,36 @@ int main(void)
     }
 
 
+    printf("\n----------------------------\nMin Path matrix:\n");
+    for (int i = 0; i < row ; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            printf("%d ", Path[i][j]);
+        }
+        printf("\n");
+
+    }
+
+    printf("\n");
+
     //print out the length of the path
-    printf("%s %d\n", "the shortest path is of length", min);
+        printf("%s %d\n", "the shortest path is of length", min);
 
-
+    //print out the path robot traveled through1
 
     int min_row = exit;
-    int min_path[col];
-    min_path[col-1] = min_row;
-
-    //save the path to a 1D array
+    int min_path[4];
+    min_path[3] = min_row;
+    printf("Revised order\n");
+    printf("%d ", exit);
     for (int i = col-1; i>0; i--)
     {
         min_row = Path[min_row][i];
         min_path[i-1] = min_row;
+        printf("%d ", min_row);
     }
-    printf("the path is: ");
+    printf("\n the path is: \n");
 
     for (int i = 0; i < col; i++)
     {
