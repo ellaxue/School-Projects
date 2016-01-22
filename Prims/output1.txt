@@ -1,0 +1,59 @@
+**********************
+Contents of getNodeIDArray
+----------------------
+Skipping dummy node
+Node 1: 3
+Node 2: 3
+Node 3: 3
+Node 4: 4
+Node 5: 3
+Node 6: 5
+Node 7: 3
+Node 8: 3
+Node 9: 3
+Node 10: 3
+Node 11: 2
+----------------------
+End of getNodeIDArray
+**********************
+
+Skipping dummy node -99999
+**********************
+Contents of edgeNode
+----------------------
+The cost from 2 to 4 is 1
+The cost from 8 to 10 is 1
+The cost from 8 to 6 is 2
+The cost from 9 to 8 is 2
+The cost from 5 to 4 is 2
+The cost from 6 to 7 is 2
+The cost from 6 to 4 is 3
+The cost from 1 to 6 is 3
+The cost from 4 to 3 is 3
+The cost from 12 to 7 is 4
+----------------------
+End of edgeNode
+**********************
+
+
+**********************
+Contents of edgeNode
+----------------------
+The cost from 9 to 11 is 5
+The cost from 12 to 7 is 4
+The cost from 4 to 3 is 3
+The cost from 5 to 4 is 2
+The cost from 2 to 4 is 1
+The cost from 6 to 4 is 3
+The cost from 6 to 7 is 2
+The cost from 9 to 8 is 2
+The cost from 8 to 10 is 1
+The cost from 8 to 6 is 2
+The cost from 1 to 6 is 3
+----------------------
+End of edgeNode
+**********************
+
+
+Complete
+Total cost = 28
